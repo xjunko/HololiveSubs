@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="width=device-width,initial-scale=1.0,user-scalable=yes,minimum-scale=1.0,maximum-scale=3.0" id="viewport" name="viewport">
+  <meta content="#15181c" name="theme-color">
+
+  <title>Hololive Followers Realtime</title>
+  <link href="/icon.png" rel="shortcut icon" type="image/x-icon">
+
+  <script src="/jquery-3.5.1.min.js" type="application/javascript"></script>
+  <script src="/Vibrant.min.js" type="application/javascript"></script>
+  <link href="/main.css" rel="stylesheet" />
+</head>
+<body>
+
+  <main>
+    <ul></ul>
+  </main>
+
+  <script>
+    function loadSubs() {
+      $.get(window.location.href + 'stats', function(data){
+        data.split('\n').forEach(function(user_data){
+          if (user_data === "") return;
+          let user = user_data.split(','),
+            screen_name = user[1].slice(1),
+            element = $(`.${screen_name}`);
+          if (element.length > 0) element.find('.followersCount').text(`${user[2]} Followers`);
+          else {
+            $('ul').append(`<li class="${screen_name}"><a href="https://twitter.com/${screen_name}" target="_blank"><div class="img"><img src="${user[3]}" crossOrigin="anonymous"/></div><div class="text"><span class="name">${user[0]}</span> <span class="username">${user[1]}</span><span class="followersCount">${user[2]} followers</span></div></a>`)
+              .find('img').on('load', function() {
+                var vibrant = new Vibrant(this),
+                  a = this.parentNode.parentNode,
+                  swatch = vibrant.VibrantSwatch;
+                a.style.background = swatch.getHex();
+                a.style.color = swatch.getTitleTextColor();
+              })
+          }
+        });
+      });
+    }
+
+    loadSubs();
+    setInterval(function(){
+      loadSubs();
+    }, 30000);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  ul {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+li {
+  list-style: none;
+}
+
+img {
+  transform: scale(1);
+  border-radius: 50%;
+  transition: transform ease-in-out 0.2s;
+  width: 100%;
+}
+
+a {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  text-decoration: none;
+  text-align: center;
+  height: 100%;
+}
+
+span {
+  flex:  auto;
+  margin-top: 1em;
+}
+
+span.followersCount {
+  width: 100%;
+  display: block;
+}
+
+a:focus {
+    outline: none;
+}
+
+a:hover img {
+    transform: scale(1.1);
+}
+
+.img {
+    margin-bottom: 1em;
+    display: flex;
+    max-width: 200px;
+}
