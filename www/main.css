@@ -89,6 +89,15 @@ main a {
   background-color: #cc0000;
 }
 
+.bFollowersCount {
+  background-color: #23aee5;
+}
+
+.bFollowersCount:hover,
+.bFollowersCount:focus {
+  background-color: #1690c0;
+}
+
 a:focus {
     outline: none;
 }

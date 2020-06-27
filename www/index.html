@@ -20,6 +20,7 @@
 
   <script>
     function nFormatter(num, digits) {
+      if (num === undefined) return;
       var si = [
         { value: 1, symbol: '' },
         { value: 1E3, symbol: 'k' },
@@ -39,37 +40,51 @@
     }
 
     function loadSubs() {
-      $.get(window.location.href + 'stats', function(data){
-        data.split('\n').forEach(function(user_data){
-          if (user_data === '') return;
-          var [name, bg_color, fg_color, yt_id, screen_name, t_followers_count, yt_followers_count, img_url] = user_data.split(','),
-              element = $(`.${screen_name}`),
-              t_followers_count = nFormatter(t_followers_count, 1),
-              yt_followers_count = nFormatter(yt_followers_count, 1);
+      $.getJSON(window.location.href + 'stats', function(data){
+        data.forEach(function(user){
+          var element = $(`.${user.twitter}`),
+              t_subs = nFormatter(user.t_subs, 1),
+              yt_subs = nFormatter(user.yt_subs, 1),
+              b_subs = nFormatter(user.b_subs, 1);
 
           if (element.length > 0) {
-            element.find('.tFollowerCount span').text(t_followers_count);
-            element.find('.ytFollowerCount span').text(yt_followers_count);
+            element.find('.tFollowerCount span').text(t_subs);
+            if (user.yt_subs) element.find('.ytFollowerCount span').text(yt_subs);
+            if (user.b_subs) element.find('.bFollowerCount span').text(b_subs);
           }
           else {
-            $('ul').append(`
-              <li class="${screen_name}" style="background-color: ${bg_color}; color: ${fg_color};">
-                <a href="https://twitter.com/${screen_name}" target="_blank">
+            var html = `
+              <li class="${user.twitter}" style="background-color: ${user.bg}; color: ${user.fg};">
+                <a href="https://twitter.com/${user.twitter}" target="_blank">
                   <div class="img">
-                    <img src="${img_url}"/>
+                    <img src="${user.image}"/>
                   </div>
                   <div class="text">
-                    <span class="name">${name}</span>
-                    <span class="username">@${screen_name}</span>
-                    <a href="https://www.youtube.com/channel/${yt_id}" class="ytFollowersCount followersCount" target="_blank">
-                      <span>${yt_followers_count}</span> YouTue Subs
-                    </a>
-                    <a href="https://twitter.com/${screen_name}" class="tFollowersCount followersCount" target="_blank">
-                      <span>${t_followers_count}</span> Twitter Subs
-                    </a>
+                    <span class="name">${user.name}</span>
+                    {buttons}
                   </div>
                 </a>
-              </li>`)
+              </li>`
+
+            var buttons = '';
+            if (yt_subs)
+              buttons += `
+                    <a href="https://www.youtube.com/channel/${user.youtube}" class="ytFollowersCount followersCount" target="_blank">
+                      <span>${yt_subs}</span> YouTue Subs
+                    </a>`;
+            if (b_subs)
+              buttons += `
+                    <a href="https://space.bilibili.com/${user.bilibili}" class="bFollowersCount followersCount" target="_blank">
+                      <span>${b_subs}</span> Bilibili Subs
+                    </a>
+                    `
+            buttons += `
+                    <a href="https://twitter.com/${user.twitter}" class="tFollowersCount followersCount" target="_blank">
+                      <span>${t_subs}</span> Twitter Subs
+                    </a>
+                    `
+
+            $('ul').append(html.replace('{buttons}', buttons))
           }
         });
       });
