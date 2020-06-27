@@ -9,7 +9,6 @@
   <link href="/icon.png" rel="shortcut icon" type="image/x-icon">
 
   <script src="/jquery-3.5.1.min.js" type="application/javascript"></script>
-  <script src="/Vibrant.min.js" type="application/javascript"></script>
   <link href="/main.css" rel="stylesheet" />
 </head>
 <body>
@@ -17,25 +16,60 @@
   <main>
     <ul></ul>
   </main>
+  <footer>Website created by <a href="https://nachtalb.io">Nachtalb</a>. Updated every 30min. Images are profile pictures from the respective twitter accounts.</footer>
 
   <script>
+    function nFormatter(num, digits) {
+      var si = [
+        { value: 1, symbol: '' },
+        { value: 1E3, symbol: 'k' },
+        { value: 1E6, symbol: 'M' },
+        { value: 1E9, symbol: 'G' },
+        { value: 1E12, symbol: 'T' },
+        { value: 1E15, symbol: 'P' },
+        { value: 1E18, symbol: 'E' }
+      ];
+      var i, rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+      for (i = si.length - 1; i > 0; i--) {
+        if (num >= si[i].value) {
+          break;
+        }
+      }
+      return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
+    }
+
     function loadSubs() {
       $.get(window.location.href + 'stats', function(data){
         data.split('\n').forEach(function(user_data){
-          if (user_data === "") return;
-          let user = user_data.split(','),
-            screen_name = user[1].slice(1),
-            element = $(`.${screen_name}`);
-          if (element.length > 0) element.find('.followersCount').text(`${user[2]} Followers`);
+          if (user_data === '') return;
+          var [name, bg_color, fg_color, yt_id, screen_name, t_followers_count, yt_followers_count, img_url] = user_data.split(','),
+              element = $(`.${screen_name}`),
+              t_followers_count = nFormatter(t_followers_count, 1),
+              yt_followers_count = nFormatter(yt_followers_count, 1);
+
+          if (element.length > 0) {
+            element.find('.tFollowerCount span').text(t_followers_count);
+            element.find('.ytFollowerCount span').text(yt_followers_count);
+          }
           else {
-            $('ul').append(`<li class="${screen_name}"><a href="https://twitter.com/${screen_name}" target="_blank"><div class="img"><img src="${user[3]}" crossOrigin="anonymous"/></div><div class="text"><span class="name">${user[0]}</span> <span class="username">${user[1]}</span><span class="followersCount">${user[2]} followers</span></div></a>`)
-              .find('img').on('load', function() {
-                var vibrant = new Vibrant(this),
-                  a = this.parentNode.parentNode,
-                  swatch = vibrant.VibrantSwatch;
-                a.style.background = swatch.getHex();
-                a.style.color = swatch.getTitleTextColor();
-              })
+            $('ul').append(`
+              <li class="${screen_name}" style="background-color: ${bg_color}; color: ${fg_color};">
+                <a href="https://twitter.com/${screen_name}" target="_blank">
+                  <div class="img">
+                    <img src="${img_url}"/>
+                  </div>
+                  <div class="text">
+                    <span class="name">${name}</span>
+                    <span class="username">@${screen_name}</span>
+                    <a href="https://www.youtube.com/channel/${yt_id}" class="ytFollowersCount followersCount" target="_blank">
+                      <span>${yt_followers_count}</span> YouTue Subs
+                    </a>
+                    <a href="https://twitter.com/${screen_name}" class="tFollowersCount followersCount" target="_blank">
+                      <span>${t_followers_count}</span> Twitter Subs
+                    </a>
+                  </div>
+                </a>
+              </li>`)
           }
         });
       });
@@ -44,7 +78,7 @@
     loadSubs();
     setInterval(function(){
       loadSubs();
-    }, 30000);
+    }, 1800000);
   </script>
 
 </body>
