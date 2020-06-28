@@ -42,6 +42,8 @@ ul {
 
 li {
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
@@ -110,6 +112,13 @@ a:hover img {
     margin-bottom: 1em;
     display: flex;
     max-width: 200px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
 }
 
 footer {
