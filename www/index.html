@@ -18,7 +18,7 @@
   </main>
   <footer>
     Website created by <a href="https://nachtalb.io" target="_blank">Nachtalb</a> (no affiliation with <a href="https://en.hololive.tv/" target="_blank">Hololive</a>).
-    Updates every 30min. (Twitter) Profile pictures are also updated.
+    Updates every 30min. (Twitter) Profile pictures are also updated. <a href="https://github.com/Nachtalb/HololiveSubs" target="_blank">Source</a>
   </footer>
 
   <script>
@@ -44,51 +44,45 @@
 
     function loadSubs() {
       $.getJSON(window.location.href + 'stats', function(data){
+        $('ul').html('');
         data.forEach(function(user){
           var element = $(`.${user.twitter}`),
               t_subs = nFormatter(user.t_subs, 1),
               yt_subs = nFormatter(user.yt_subs, 1),
               b_subs = nFormatter(user.b_subs, 1);
 
-          if (element.length > 0) {
-            element.find('.tFollowerCount span').text(t_subs);
-            if (user.yt_subs) element.find('.ytFollowerCount span').text(yt_subs);
-            if (user.b_subs) element.find('.bFollowerCount span').text(b_subs);
-          }
-          else {
-            var html = `
-              <li class="${user.twitter}" style="background-color: ${user.bg}; color: ${user.fg};">
-                <a href="https://twitter.com/${user.twitter}" target="_blank">
-                  <div class="img">
-                    <img src="${user.image}"/>
-                  </div>
-                  <span class="name">${user.name}</span>
-                </a>
-                <div class="buttons">
-                  {buttons}
+          var html = `
+            <li class="${user.twitter}" style="background-color: ${user.bg}; color: ${user.fg};">
+              <a href="https://twitter.com/${user.twitter}" target="_blank">
+                <div class="img">
+                  <img src="${user.image}"/>
                 </div>
-              </li>`
+                <span class="name">${user.name}</span>
+              </a>
+              <div class="buttons">
+                {buttons}
+              </div>
+            </li>`
 
-            var buttons = '';
-            if (yt_subs)
-              buttons += `
-                    <a href="https://www.youtube.com/channel/${user.youtube}" class="ytFollowersCount followersCount" target="_blank">
-                      <span>${yt_subs}</span> YouTube
-                    </a>`;
-            if (b_subs)
-              buttons += `
-                    <a href="https://space.bilibili.com/${user.bilibili}" class="bFollowersCount followersCount" target="_blank">
-                      <span>${b_subs}</span> Bilibili
-                    </a>
-                    `
+          var buttons = '';
+          if (yt_subs)
             buttons += `
-                    <a href="https://twitter.com/${user.twitter}" class="tFollowersCount followersCount" target="_blank">
-                      <span>${t_subs}</span> Twitter
-                    </a>
-                    `
+                  <a href="https://www.youtube.com/channel/${user.youtube}" class="ytFollowersCount followersCount" target="_blank">
+                    <span>${yt_subs}</span> YouTube
+                  </a>`;
+          if (b_subs)
+            buttons += `
+                  <a href="https://space.bilibili.com/${user.bilibili}" class="bFollowersCount followersCount" target="_blank">
+                    <span>${b_subs}</span> Bilibili
+                  </a>
+                  `
+          buttons += `
+                  <a href="https://twitter.com/${user.twitter}" class="tFollowersCount followersCount" target="_blank">
+                    <span>${t_subs}</span> Twitter
+                  </a>
+                  `
 
-            $('ul').append(html.replace('{buttons}', buttons))
-          }
+          $('ul').append(html.replace('{buttons}', buttons))
         });
       });
     }
