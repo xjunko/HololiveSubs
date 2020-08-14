@@ -49,6 +49,8 @@ channels = [
     {'name': 'Rosalyn',           'bg': '#314268', 'fg': '#fff', 'twitter':  'rosalyn_holocn',  'youtube': '', 'bilibili': '511613157'},
     {'name': 'Spade Echo',        'bg': '#bb88a1', 'fg': '#fff', 'twitter':  'spadeecho',       'youtube': '', 'bilibili': '456368455'},
     {'name': 'Yogiri',            'bg': '#bd536e', 'fg': '#fff', 'twitter':  'yogiri_hololive', 'youtube': '', 'bilibili': '427061218'},
+    # Best Girl
+    {'name': 'Best Girl (Yagoo)', 'bg': '#c3b4af', 'fg': '#fff', 'twitter':  'tanigox',         'youtube': '', 'bilibili': ''},
 ]
 
 # YouTube
