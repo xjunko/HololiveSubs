@@ -39,6 +39,30 @@ ul {
   }
 }
 
+@media (min-width: 2560px) {
+  ul {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 2560px) {
+  ul {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 3440px) {
+  ul {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@media (min-width: 3840px) {
+  ul {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
 
 li {
   list-style: none;
@@ -104,6 +128,10 @@ a:focus {
     outline: none;
 }
 
+main a:hover {
+  text-shadow: 0 0 5px;
+}
+
 a:hover img {
     transform: scale(1.1);
 }
@@ -124,5 +152,5 @@ a:hover img {
 footer {
   text-align: center;
   font-size: .7em;
-  margin-top: 1em;
+  margin: 1em 0;
 }
