@@ -6,6 +6,10 @@ from twitter import Api
 import json
 import requests
 import time
+import logging
+
+logging.basicConfig(level=logging.INFO)
+LOG = logging.getLogger('HololiveStats')
 
 
 channels = [
@@ -66,6 +70,7 @@ parts = ['statistics']
 yt_key = 'AIzaSyBb2geihz612g_0SxfaP0JCSTfkg6vtPAY'
 yt_url = 'https://www.googleapis.com/youtube/v3/channels?part={parts}&id={channels}&key={key}'
 
+LOG.info('Getting YouTube stats...')
 ids = filter(None, map(lambda data: data['youtube'], channels))
 yt_data = requests.get(yt_url.format(
     parts=','.join(parts),
@@ -79,6 +84,7 @@ twitter_api = Api(consumer_key='OsD23pataKp2SvoX9V5VYamen',
                   access_token_key='4879173371-UGtBxDnTgX3kLONLUW210zSkR7tC94P3zNQPZjd',
                   access_token_secret='TeqEu6WPcUYnvCs6rgQtZElxnpZI6LZGMuc5noVA686us')
 
+LOG.info('Getting Twitter stats...')
 t_data = twitter_api.GetListMembersPaged('1275532206446952448')[2]
 
 # Sort and gather data
@@ -91,6 +97,7 @@ for channel_data in channels:
     b_user, yt_user= None, None
 
     if channel_data['bilibili']:
+        LOG.info('Getting BiliBili stats for %s...', channel_data['name'])
         b_user = UserInfo(channel_data['bilibili']).get_info()
         channel_data['b_subs'] = int(b_user['follower'])
     if channel_data['youtube']:
@@ -108,4 +115,4 @@ result = sorted(channels, reverse=True, key=lambda data: data[data['main_subs']]
 # Write stats
 data_file = Path(__file__).absolute().parent / 'www/stats'
 data_file.write_text(json.dumps(result))
-print(time.asctime())
+LOG.info('Done')
