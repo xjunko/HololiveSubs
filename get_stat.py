@@ -38,6 +38,14 @@ channels = [
     {'name': 'Usada Pekora',      'bg': '#acc0ee', 'fg': '#fff', 'twitter':  'usadapekora',     'youtube': 'UC1DCedRgGHBdm81E1llLhOQ', 'bilibili': '443305053'},
     {'name': 'Yozora Mel',        'bg': '#d7a86a', 'fg': '#fff', 'twitter':  'yozoramel',       'youtube': 'UCD8HOxPs4Xvsm8H0ZxXGiBw', 'bilibili': '389856447'},
     {'name': 'Yuzuki Choco',      'bg': '#eb9f74', 'fg': '#fff', 'twitter':  'yuzukichococh',   'youtube': 'UC1suqwovbL1kzsoaZgFZLKg', 'bilibili': '389858754'},
+
+    # 5th gen
+    {'name': 'Mano Aloe',         'bg': '#DA8EAC', 'fg': '#fff', 'twitter':  'manoaloe',        'youtube': 'UCgZuwn-O7Szh9cAgHqJ6vjw', 'bilibili': ''},
+    {'name': 'Momosuzu Nene',     'bg': '#E9D7D2', 'fg': '#fff', 'twitter':  'momosuzunene',    'youtube': 'UCAWSyEs_Io8MtpY3m-zqILA', 'bilibili': ''},
+    {'name': 'Omaru Polka',       'bg': '#37465C', 'fg': '#fff', 'twitter':  'omarupolka',      'youtube': 'UCK9V2B22uJYu3N7eR_BT9QA', 'bilibili': ''},
+    {'name': 'Shishiro Botan',    'bg': '#322C34', 'fg': '#fff', 'twitter':  'shishirobotan',   'youtube': 'UCUKD-uaobj9jiqB-VXt71mA', 'bilibili': ''},
+    {'name': 'Yukihana Lamy',     'bg': '#7895B8', 'fg': '#fff', 'twitter':  'yukihanalamy',    'youtube': 'UCFKOVgVbGmX65RxO3EtH3iw', 'bilibili': '624252706'},
+
     # Indonesia
     {'name': 'Airani Iofifteen',  'bg': '#be8b8f', 'fg': '#fff', 'twitter':  'airaniiofifteen', 'youtube': 'UCAoy6rzhSf4ydcYjJw3WoVg', 'bilibili': ''},
     {'name': 'Ayunda Risu',       'bg': '#d48d85', 'fg': '#fff', 'twitter':  'ayunda_risu',     'youtube': 'UCOyYb1c43VlX9rc_lT6NKQw', 'bilibili': ''},
